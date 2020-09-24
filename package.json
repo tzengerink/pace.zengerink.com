@@ -1,5 +1,5 @@
 {
-  "name": "Pace Calculator",
+  "name": "pace-calculator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,10 +29,13 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^24.0.0",
+    "@types/enzyme": "^3.10.7",
+    "@types/jest": "^26.0.14",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
     "typescript": "~3.7.2"
   }
 }
