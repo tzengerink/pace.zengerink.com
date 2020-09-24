@@ -12,14 +12,23 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         super(props)
 
         this.state = {
-            seconds: 10000 // TODO: Adjust to correct start value
+            seconds: 0
         }
+
+        this.handleChange = this.handleChange.bind(this)
     }
+
+    handleChange(value: number) {
+        this.setState({
+            seconds: value
+        })
+    }
+
     render() {
         return (
             <div className="calculator">
                 <div className="calculator__header">Pace Calculator</div>
-                <DurationSelect value={this.state.seconds} />
+                <DurationSelect value={this.state.seconds} onChange={this.handleChange} />
             </div>
         )
     }

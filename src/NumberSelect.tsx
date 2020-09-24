@@ -1,7 +1,9 @@
 import React from 'react'
 
 interface NumberSelectProps {
+    name: string
     value: number
+    onChange: (value: number) => void
     max: string
     pad?: string
 }
@@ -9,6 +11,11 @@ interface NumberSelectProps {
 interface NumberSelectState {}
 
 export default class NumberSelect extends React.Component<NumberSelectProps, NumberSelectState> {
+    constructor(props: any) {
+        super(props)
+
+        this.handleChange = this.handleChange.bind(this)
+    }
 
     displayValue(value: number): string {
         if (!this.props.pad) {
@@ -16,6 +23,10 @@ export default class NumberSelect extends React.Component<NumberSelectProps, Num
         }
 
         return value.toString().padStart(parseInt(this.props.pad), '0')
+    }
+
+    handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        this.props.onChange(parseInt(event.currentTarget.value));
     }
 
     render() {
@@ -29,9 +40,7 @@ export default class NumberSelect extends React.Component<NumberSelectProps, Num
         )
 
         return (
-            <select value={this.props.value}>
-                {items}
-            </select>
+            <select name={this.props.name} value={this.props.value} onChange={this.handleChange}>{items}</select>
         )
     }
 }

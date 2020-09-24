@@ -1,8 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { shallow } from 'enzyme'
+import { shallowToJson } from 'enzyme-to-json'
 import Calculator from './Calculator'
 
-it('renders correctly', () => {
-  const tree = renderer.create(<Calculator />).toJSON();
-  expect(tree).toMatchSnapshot();
+describe('render', () => {
+  it('renders correctly', () => {
+    const json = shallowToJson(shallow(<Calculator />))
+    expect(json).toMatchSnapshot();
+  })
 })

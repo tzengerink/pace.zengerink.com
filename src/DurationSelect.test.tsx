@@ -1,8 +1,33 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import DurationSelect from './DurationSelect'
+import { shallow } from 'enzyme'
+import { shallowToJson } from 'enzyme-to-json'
+import DurationSelect, { DurationFragment } from './DurationSelect'
 
-it('renders correctly', () => {
-  const tree = renderer.create(<DurationSelect value={0} />).toJSON();
-  expect(tree).toMatchSnapshot();
+
+describe('render', () => {
+  it('renders correctly', () => {
+    const onChange = jest.fn()
+    const wrapper = shallow(<DurationSelect value={3661} onChange={onChange} />)
+    const json = shallowToJson(wrapper)
+    expect(json).toMatchSnapshot()
+  })
+})
+
+describe('onChange', () => {
+  function testOnChange(name: string, newValue: number, expectedArgument: number) {
+    const onChange = jest.fn()
+    const wrapper = shallow(<DurationSelect value={0} onChange={onChange} />)
+    const select = wrapper.find(`[name="${name}"]`)
+    expect(select.length).toBe(1)
+
+    select.simulate('change', newValue)
+    expect(onChange.mock.calls.length).toBe(1)
+    expect(onChange.mock.calls[0][0]).toBe(expectedArgument)
+  }
+
+  it('is called when one of the selects changes', () => {
+    testOnChange(DurationFragment.Hours, 1, 3600)
+    testOnChange(DurationFragment.Minutes, 2, 120)
+    testOnChange(DurationFragment.Seconds, 3, 3)
+  })
 })

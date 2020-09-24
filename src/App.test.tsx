@@ -1,8 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { shallow } from 'enzyme'
+import { shallowToJson } from 'enzyme-to-json'
 import App from './App'
 
-it('renders correctly', () => {
-  const tree = renderer.create(<App />).toJSON();
-  expect(tree).toMatchSnapshot();
+describe('render', () => {
+  it('renders correctly', () => {
+    const json = shallowToJson(shallow(<App />))
+    expect(json).toMatchSnapshot();
+  })
 })
