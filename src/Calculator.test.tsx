@@ -1,15 +1,8 @@
 import React from 'react'
-import { shallow, ShallowWrapper } from 'enzyme'
+import renderer from 'react-test-renderer'
 import Calculator from './Calculator'
 
-let wrapper: ShallowWrapper;
-
-describe('Calculator', () => {
-  beforeEach(() => {
-    wrapper = shallow(<Calculator />)
-  })
-
-  it('renders', () => {
-    expect(wrapper).not.toBeNull()
-  })
+it('renders correctly', () => {
+  const tree = renderer.create(<Calculator />).toJSON();
+  expect(tree).toMatchSnapshot();
 })
