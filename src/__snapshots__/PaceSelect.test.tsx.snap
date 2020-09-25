@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render renders correctly 1`] = `
+<div
+  className="duration-select"
+>
+  <NumberSelect
+    max="59"
+    name="minutes"
+    onChange={[Function]}
+    value={61}
+  />
+  <span>
+    :
+  </span>
+  <NumberSelect
+    max="59"
+    name="seconds"
+    onChange={[Function]}
+    pad="2"
+    value={1}
+  />
+  <span>
+    min/km
+  </span>
+</div>
+`;
