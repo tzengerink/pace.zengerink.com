@@ -1,10 +1,16 @@
 import React from 'react'
 import DurationSelect from './DurationSelect'
+import DistanceSelect from './DistanceSelect'
+
+enum CalculatorValue {
+    Seconds = 'seconds',
+    Meters = 'meters'
+}
 
 interface CalculatorProps {}
 
 interface CalculatorState {
-    seconds: number
+    [key: string]: number
 }
 
 export default class Calculator extends React.Component<CalculatorProps, CalculatorState> {
@@ -12,15 +18,14 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         super(props)
 
         this.state = {
-            seconds: 0
+            [CalculatorValue.Seconds]: 0,
+            [CalculatorValue.Meters]: 0
         }
-
-        this.handleChange = this.handleChange.bind(this)
     }
 
-    handleChange(value: number) {
+    handleChange(prop: CalculatorValue, value: number) {
         this.setState({
-            seconds: value
+            [prop]: value,
         })
     }
 
@@ -28,7 +33,8 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         return (
             <div className="calculator">
                 <div className="calculator__header">Pace Calculator</div>
-                <DurationSelect value={this.state.seconds} onChange={this.handleChange} />
+                <DurationSelect value={this.state[CalculatorValue.Seconds]} onChange={this.handleChange.bind(this, CalculatorValue.Seconds)} />
+                <DistanceSelect value={this.state[CalculatorValue.Meters]} onChange={this.handleChange.bind(this, CalculatorValue.Meters)} />
             </div>
         )
     }
