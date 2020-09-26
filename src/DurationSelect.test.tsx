@@ -13,8 +13,8 @@ describe('render', () => {
   })
 })
 
-describe('onChange', () => {
-  function testOnChange(name: string, newValue: number, expectedArgument: number) {
+describe('handleChange', () => {
+  const testHandleChange = (name: string, newValue: number, expectedArgument: number) => {
     const onChange = jest.fn()
     const wrapper = shallow(<DurationSelect value={0} onChange={onChange} />)
     const select = wrapper.find(`[name="${name}"]`)
@@ -26,8 +26,8 @@ describe('onChange', () => {
   }
 
   it('is called when one of the selects changes', () => {
-    testOnChange(DurationFragment.Hours, 1, 3600)
-    testOnChange(DurationFragment.Minutes, 2, 120)
-    testOnChange(DurationFragment.Seconds, 3, 3)
+    testHandleChange(DurationFragment.Hours, 1, 3600)
+    testHandleChange(DurationFragment.Minutes, 2, 120)
+    testHandleChange(DurationFragment.Seconds, 3, 3)
   })
 })

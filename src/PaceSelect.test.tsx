@@ -13,8 +13,8 @@ describe('render', () => {
   })
 })
 
-describe('onChange', () => {
-  const testOnChange = (name: string, newValue: number, expectedArgument: number) => {
+describe('handleChange', () => {
+  const testHandleChange = (name: string, newValue: number, expectedArgument: number) => {
     const onChange = jest.fn()
     const wrapper = shallow(<PaceSelect value={0} onChange={onChange} />)
     const select = wrapper.find(`[name="${name}"]`)
@@ -26,7 +26,7 @@ describe('onChange', () => {
   }
 
   it('is called when one of the selects changes', () => {
-    testOnChange(PaceFragment.Minutes, 1, 60)
-    testOnChange(PaceFragment.Seconds, 2, 2)
+    testHandleChange(PaceFragment.Minutes, 1, 60)
+    testHandleChange(PaceFragment.Seconds, 2, 2)
   })
 })

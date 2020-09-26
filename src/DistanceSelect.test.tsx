@@ -13,8 +13,8 @@ describe('render', () => {
   })
 })
 
-describe('onChange', () => {
-  function testOnChange(name: string, newValue: number, expectedArgument: number) {
+describe('handleChange', () => {
+  const testHandleChange = (name: string, newValue: number, expectedArgument: number) => {
     const onChange = jest.fn()
     const wrapper = shallow(<DistanceSelect value={0} onChange={onChange} />)
     const select = wrapper.find(`[name="${name}"]`)
@@ -26,7 +26,7 @@ describe('onChange', () => {
   }
 
   it('is called when one of the selects changes', () => {
-    testOnChange(DistanceFragment.Kilometers, 1, 1000)
-    testOnChange(DistanceFragment.Meters, 2, 2)
+    testHandleChange(DistanceFragment.Kilometers, 1, 1000)
+    testHandleChange(DistanceFragment.Meters, 2, 2)
   })
 })
