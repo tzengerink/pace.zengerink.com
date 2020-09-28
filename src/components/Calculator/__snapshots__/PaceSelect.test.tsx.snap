@@ -2,26 +2,37 @@
 
 exports[`render renders correctly 1`] = `
 <div
-  className="duration-select"
+  className="pace-select"
 >
-  <NumberSelect
-    max="59"
-    name="minutes"
-    onChange={[Function]}
-    value={61}
+  <div
+    className="pace-select__label"
   />
-  <span>
-    :
-  </span>
-  <NumberSelect
-    max="59"
-    name="seconds"
-    onChange={[Function]}
-    pad="2"
-    value={1}
-  />
-  <span>
-    min/km
-  </span>
+  <div
+    className="pace-select__input"
+  >
+    <NumberSelect
+      max="59"
+      name="minutes"
+      onChange={[Function]}
+      value={61}
+    />
+    <span
+      className="pace-select__separator"
+    >
+      :
+    </span>
+    <NumberSelect
+      max="59"
+      name="seconds"
+      onChange={[Function]}
+      pad="2"
+      value={1}
+    />
+    <span
+      className="pace-select__value-label"
+    >
+      min/km
+    </span>
+  </div>
 </div>
 `;

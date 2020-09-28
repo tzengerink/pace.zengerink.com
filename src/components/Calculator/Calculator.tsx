@@ -2,6 +2,7 @@ import React from 'react'
 import DurationSelect from './DurationSelect'
 import DistanceSelect from './DistanceSelect'
 import PaceSelect from './PaceSelect'
+import './Calculator.scss'
 
 export enum CalculatorValue {
   DurationInSeconds = 'seconds',
@@ -108,14 +109,17 @@ export default class Calculator extends React.Component<{}, CalculatorState> {
       <div className="calculator">
         <div className="calculator__header">Pace Calculator</div>
         <DurationSelect
+          label="Time"
           value={this.state[CalculatorValue.DurationInSeconds]}
           onChange={this.handleChange.bind(this, CalculatorValue.DurationInSeconds)}
         />
         <DistanceSelect
+          label="Distance"
           value={this.state[CalculatorValue.DistanceInMeters]}
           onChange={this.handleChange.bind(this, CalculatorValue.DistanceInMeters)}
         />
         <PaceSelect
+          label="Pace"
           value={this.state[CalculatorValue.PaceInSeconds]}
           onChange={this.handleChange.bind(this, CalculatorValue.PaceInSeconds)}
         />

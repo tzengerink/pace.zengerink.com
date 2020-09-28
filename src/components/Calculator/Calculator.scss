@@ -1,0 +1,36 @@
+$border-radius: 4px;
+
+@mixin calculator-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px;
+
+    &__label {
+        color: #555;
+    }
+
+    &__value-label {
+        margin-left: 3px;
+        color: #333;
+    }
+}
+
+.calculator {
+    width: 300px;
+    margin: 20px auto;
+    border-radius: $border-radius;
+    box-shadow: 6px 8px 42px 1px rgba(0, 0, 0, .15);
+
+    &__header {
+        padding: 13px 0 13px 16px;
+        background-color: #e6e6e6;
+        color: #333;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+    }
+
+    &:last-child {
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+    }
+}

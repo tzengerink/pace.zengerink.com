@@ -10,14 +10,17 @@ exports[`render renders correctly 1`] = `
     Pace Calculator
   </div>
   <DurationSelect
+    label="Time"
     onChange={[Function]}
     value={0}
   />
   <DurationSelect
+    label="Distance"
     onChange={[Function]}
     value={0}
   />
   <DurationSelect
+    label="Pace"
     onChange={[Function]}
     value={0}
   />

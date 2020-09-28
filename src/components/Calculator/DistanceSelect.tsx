@@ -1,5 +1,6 @@
 import React from 'react'
 import NumberSelect from './NumberSelect'
+import './DistanceSelect.scss'
 
 export enum DistanceFragment {
   Kilometers = 'km',
@@ -7,6 +8,7 @@ export enum DistanceFragment {
 }
 
 interface DistanceSelectProps {
+  label: string
   value: number
   onChange: (value: number) => void
 }
@@ -37,22 +39,25 @@ export default class DurationSelect extends React.Component<DistanceSelectProps,
     const distance = this.toDistance(this.props.value)
 
     return (
-      <div className="duration-select">
-        <NumberSelect
-          name={DistanceFragment.Kilometers}
-          value={distance[DistanceFragment.Kilometers]}
-          max="100"
-          onChange={this.handleChange.bind(this, DistanceFragment.Kilometers)}
-        />
-        <span>.</span>
-        <NumberSelect
-          name={DistanceFragment.Meters}
-          value={distance[DistanceFragment.Meters]}
-          max="999"
-          pad="3"
-          onChange={this.handleChange.bind(this, DistanceFragment.Meters)}
-        />
-        <span>km</span>
+      <div className="distance-select">
+        <div className="distance-select__label">{this.props.label}</div>
+        <div className="distance-select__input">
+          <NumberSelect
+            name={DistanceFragment.Kilometers}
+            value={distance[DistanceFragment.Kilometers]}
+            max="100"
+            onChange={this.handleChange.bind(this, DistanceFragment.Kilometers)}
+          />
+          <span className="distance-select__separator">.</span>
+          <NumberSelect
+            name={DistanceFragment.Meters}
+            value={distance[DistanceFragment.Meters]}
+            max="999"
+            pad="3"
+            onChange={this.handleChange.bind(this, DistanceFragment.Meters)}
+          />
+          <span className="distance-select__value-label">km</span>
+        </div>
       </div>
     )
   }

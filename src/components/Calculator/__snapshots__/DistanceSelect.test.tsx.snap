@@ -2,26 +2,37 @@
 
 exports[`render renders correctly 1`] = `
 <div
-  className="duration-select"
+  className="distance-select"
 >
-  <NumberSelect
-    max="100"
-    name="km"
-    onChange={[Function]}
-    value={3}
+  <div
+    className="distance-select__label"
   />
-  <span>
-    .
-  </span>
-  <NumberSelect
-    max="999"
-    name="m"
-    onChange={[Function]}
-    pad="3"
-    value={661}
-  />
-  <span>
-    km
-  </span>
+  <div
+    className="distance-select__input"
+  >
+    <NumberSelect
+      max="100"
+      name="km"
+      onChange={[Function]}
+      value={3}
+    />
+    <span
+      className="distance-select__separator"
+    >
+      .
+    </span>
+    <NumberSelect
+      max="999"
+      name="m"
+      onChange={[Function]}
+      pad="3"
+      value={661}
+    />
+    <span
+      className="distance-select__value-label"
+    >
+      km
+    </span>
+  </div>
 </div>
 `;

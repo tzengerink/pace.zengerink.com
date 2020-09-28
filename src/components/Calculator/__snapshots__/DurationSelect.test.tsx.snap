@@ -4,34 +4,47 @@ exports[`render renders correctly 1`] = `
 <div
   className="duration-select"
 >
-  <NumberSelect
-    max="23"
-    name="hours"
-    onChange={[Function]}
-    value={1}
+  <div
+    className="duration-select__label"
   />
-  <span>
-    :
-  </span>
-  <NumberSelect
-    max="59"
-    name="minutes"
-    onChange={[Function]}
-    pad="2"
-    value={1}
-  />
-  <span>
-    :
-  </span>
-  <NumberSelect
-    max="59"
-    name="seconds"
-    onChange={[Function]}
-    pad="2"
-    value={1}
-  />
-  <span>
-    hh:mm:ss
-  </span>
+  <div
+    className="duration-select__input"
+  >
+    <NumberSelect
+      max="23"
+      name="hours"
+      onChange={[Function]}
+      value={1}
+    />
+    <span
+      className="duration-select__separator"
+    >
+      :
+    </span>
+    <NumberSelect
+      max="59"
+      name="minutes"
+      onChange={[Function]}
+      pad="2"
+      value={1}
+    />
+    <span
+      className="duration-select__separator"
+    >
+      :
+    </span>
+    <NumberSelect
+      max="59"
+      name="seconds"
+      onChange={[Function]}
+      pad="2"
+      value={1}
+    />
+    <span
+      className="duration-select__value-label"
+    >
+      hh:mm:ss
+    </span>
+  </div>
 </div>
 `;

@@ -1,5 +1,6 @@
 import React from 'react'
 import NumberSelect from './NumberSelect'
+import './DurationSelect.scss'
 
 export enum DurationFragment {
   Hours = 'hours',
@@ -8,6 +9,7 @@ export enum DurationFragment {
 }
 
 interface DurationSelectProps {
+  label: string
   value: number
   onChange: (value: number) => void
 }
@@ -45,29 +47,32 @@ export default class DurationSelect extends React.Component<DurationSelectProps,
 
     return (
       <div className="duration-select">
-        <NumberSelect
-          name={DurationFragment.Hours}
-          value={duration[DurationFragment.Hours]}
-          max="23"
-          onChange={this.handleChange.bind(this, DurationFragment.Hours)}
-        />
-        <span>:</span>
-        <NumberSelect
-          name={DurationFragment.Minutes}
-          value={duration[DurationFragment.Minutes]}
-          max="59"
-          pad="2"
-          onChange={this.handleChange.bind(this, DurationFragment.Minutes)}
-        />
-        <span>:</span>
-        <NumberSelect
-          name={DurationFragment.Seconds}
-          value={duration[DurationFragment.Seconds]}
-          max="59"
-          pad="2"
-          onChange={this.handleChange.bind(this, DurationFragment.Seconds)}
-        />
-        <span>hh:mm:ss</span>
+        <div className="duration-select__label">{this.props.label}</div>
+        <div className="duration-select__input">
+          <NumberSelect
+            name={DurationFragment.Hours}
+            value={duration[DurationFragment.Hours]}
+            max="23"
+            onChange={this.handleChange.bind(this, DurationFragment.Hours)}
+          />
+          <span className="duration-select__separator">:</span>
+          <NumberSelect
+            name={DurationFragment.Minutes}
+            value={duration[DurationFragment.Minutes]}
+            max="59"
+            pad="2"
+            onChange={this.handleChange.bind(this, DurationFragment.Minutes)}
+          />
+          <span className="duration-select__separator">:</span>
+          <NumberSelect
+            name={DurationFragment.Seconds}
+            value={duration[DurationFragment.Seconds]}
+            max="59"
+            pad="2"
+            onChange={this.handleChange.bind(this, DurationFragment.Seconds)}
+          />
+          <span className="duration-select__value-label">hh:mm:ss</span>
+        </div>
       </div>
     )
   }

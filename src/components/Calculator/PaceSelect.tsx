@@ -1,5 +1,6 @@
 import React from 'react'
 import NumberSelect from './NumberSelect'
+import './PaceSelect.scss'
 
 export enum PaceFragment {
   Minutes = 'minutes',
@@ -7,6 +8,7 @@ export enum PaceFragment {
 }
 
 interface PaceSelectProps {
+  label: string
   value: number
   onChange: (value: number) => void
 }
@@ -37,22 +39,25 @@ export default class DurationSelect extends React.Component<PaceSelectProps, {}>
     const pace = this.toPace(this.props.value)
 
     return (
-      <div className="duration-select">
-        <NumberSelect
-          name={PaceFragment.Minutes}
-          value={pace[PaceFragment.Minutes]}
-          max="59"
-          onChange={this.handleChange.bind(this, PaceFragment.Minutes)}
-        />
-        <span>:</span>
-        <NumberSelect
-          name={PaceFragment.Seconds}
-          value={pace[PaceFragment.Seconds]}
-          max="59"
-          pad="2"
-          onChange={this.handleChange.bind(this, PaceFragment.Seconds)}
-        />
-        <span>min/km</span>
+      <div className="pace-select">
+        <div className="pace-select__label">{this.props.label}</div>
+        <div className="pace-select__input">
+          <NumberSelect
+            name={PaceFragment.Minutes}
+            value={pace[PaceFragment.Minutes]}
+            max="59"
+            onChange={this.handleChange.bind(this, PaceFragment.Minutes)}
+          />
+          <span className="pace-select__separator">:</span>
+          <NumberSelect
+            name={PaceFragment.Seconds}
+            value={pace[PaceFragment.Seconds]}
+            max="59"
+            pad="2"
+            onChange={this.handleChange.bind(this, PaceFragment.Seconds)}
+          />
+          <span className="pace-select__value-label">min/km</span>
+        </div>
       </div>
     )
   }
