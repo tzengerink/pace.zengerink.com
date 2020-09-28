@@ -50,9 +50,10 @@ export default class Calculator extends React.Component<{}, CalculatorState> {
     return Math.round(paceInMinutes * 60)
   }
 
-  calculateStateProp(state: CalculatorState, prop: CalculatorValue, fn: () => number): CalculatorState {
+  calculateStateProp(state: CalculatorState, prop: CalculatorValue, calc: () => number): CalculatorState {
     if (state[prop] === 0 || !state.changed.find((item) => item === prop)) {
-      state[prop] = fn()
+      const value = calc()
+      state[prop] = Number.isFinite(value) ? value : 0
     }
     return state
   }
@@ -67,16 +68,11 @@ export default class Calculator extends React.Component<{}, CalculatorState> {
       }
       nextState[prop] = value
 
-      // Store changed item, no need to calculate when there's not enough values set
+      // Push current item to the `changed` list, only keep two recent items
       if (!prevState.changed.some((item) => item === prop)) {
-        if (nextState.changed.push(prop) < 2) {
-          return nextState
+        if (nextState.changed.push(prop) > 2) {
+          nextState.changed.shift()
         }
-      }
-
-      // Remove item that was least recently changed
-      if (nextState.changed.length > 2) {
-        nextState.changed.shift()
       }
 
       nextState = this.calculateStateProp(nextState, CalculatorValue.DurationInSeconds, () => {
