@@ -25,7 +25,7 @@ describe('onChange', () => {
     const wrapper = shallow(<NumberSelect name="test" value={0} max="3" onChange={onChange} />)
     const select = wrapper.find('[name="test"]')
     const value = 1
-    const event = {currentTarget: {value: value.toString()}} as React.ChangeEvent<HTMLSelectElement>
+    const event = { currentTarget: { value: value.toString() } } as React.ChangeEvent<HTMLSelectElement>
     select.simulate('change', event)
     expect(onChange.mock.calls.length).toBe(1)
   })

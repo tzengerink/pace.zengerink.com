@@ -6,6 +6,6 @@ import App from './App'
 describe('render', () => {
   it('renders correctly', () => {
     const json = shallowToJson(shallow(<App />))
-    expect(json).toMatchSnapshot();
+    expect(json).toMatchSnapshot()
   })
 })

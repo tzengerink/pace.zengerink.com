@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
 import DistanceSelect, { DistanceFragment } from './DistanceSelect'
 
-
 describe('render', () => {
   it('renders correctly', () => {
     const onChange = jest.fn()

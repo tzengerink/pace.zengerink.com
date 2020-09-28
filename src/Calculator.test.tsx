@@ -14,7 +14,7 @@ describe('handleChange', () => {
   const testValues = {
     [CalculatorValue.DurationInSeconds]: 600, // 10 min
     [CalculatorValue.DistanceInMeters]: 2000, // 2 km
-    [CalculatorValue.PaceInSeconds]: 300 // 5 min/km
+    [CalculatorValue.PaceInSeconds]: 300, // 5 min/km
   }
 
   it('calculates pace when duration and distance have been set', () => {
@@ -64,13 +64,19 @@ describe('handleChange', () => {
     const instance = wrapper.instance() as Calculator
 
     instance.handleChange(CalculatorValue.DurationInSeconds, testValues[CalculatorValue.DurationInSeconds])
-    expect(wrapper.state()).toMatchObject({changed: [CalculatorValue.DurationInSeconds]})
+    expect(wrapper.state()).toMatchObject({
+      changed: [CalculatorValue.DurationInSeconds],
+    })
 
     instance.handleChange(CalculatorValue.DistanceInMeters, testValues[CalculatorValue.DistanceInMeters])
-    expect(wrapper.state()).toMatchObject({changed: [CalculatorValue.DurationInSeconds, CalculatorValue.DistanceInMeters]})
+    expect(wrapper.state()).toMatchObject({
+      changed: [CalculatorValue.DurationInSeconds, CalculatorValue.DistanceInMeters],
+    })
 
     instance.handleChange(CalculatorValue.PaceInSeconds, testValues[CalculatorValue.PaceInSeconds])
-    expect(wrapper.state()).toMatchObject({changed: [CalculatorValue.DistanceInMeters, CalculatorValue.PaceInSeconds]})
+    expect(wrapper.state()).toMatchObject({
+      changed: [CalculatorValue.DistanceInMeters, CalculatorValue.PaceInSeconds],
+    })
   })
 
   it('calculates the value of the last unchanged select', () => {
@@ -90,7 +96,7 @@ describe('handleChange', () => {
     const values = {
       [CalculatorValue.DurationInSeconds]: 300, // 5 min
       [CalculatorValue.DistanceInMeters]: 5000, // 5 km
-      [CalculatorValue.PaceInSeconds]: 60 // 1 min/km
+      [CalculatorValue.PaceInSeconds]: 60, // 1 min/km
     }
 
     instance.handleChange(CalculatorValue.DurationInSeconds, values[CalculatorValue.DurationInSeconds])
@@ -99,7 +105,7 @@ describe('handleChange', () => {
     expect(wrapper.state()).toMatchObject({
       [CalculatorValue.DurationInSeconds]: values[CalculatorValue.DurationInSeconds],
       [CalculatorValue.DistanceInMeters]: values[CalculatorValue.DistanceInMeters],
-      [CalculatorValue.PaceInSeconds]: values[CalculatorValue.PaceInSeconds]
+      [CalculatorValue.PaceInSeconds]: values[CalculatorValue.PaceInSeconds],
     })
   })
 })

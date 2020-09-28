@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
 import PaceSelect, { PaceFragment } from './PaceSelect'
 
-
 describe('render', () => {
   it('renders correctly', () => {
     const onChange = jest.fn()
