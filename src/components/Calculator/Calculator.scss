@@ -1,36 +1,56 @@
 $border-radius: 4px;
+$box-shadow: 6px 8px 42px 1px rgba(0, 0, 0, .15);
+$highlight-dark: #38f;
+$highlight-light: #e9f4f7;
+$hover-grey: #f0f0f0;
 
 @mixin calculator-row {
     display: flex;
     justify-content: space-between;
-    padding: 13px;
+    margin: 3px 0 0 0;
+    padding: 10px 0 13px 13px;
+    border-bottom: 1px solid #e6e6e6;
 
     &__label {
         color: #555;
     }
 
+    &__input {
+        flex-basis: 180px;
+    }
+
+    &__separator,
     &__value-label {
-        margin-left: 3px;
+        float: left;
         color: #333;
+    }
+
+    &__separator {
+        margin: 0 1px;
+    }
+
+    &__value-label {
+        margin: 0 7px 0 4px;
+    }
+
+    &:last-child {
+        border-bottom: 0;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
     }
 }
 
 .calculator {
-    width: 300px;
+    width: 280px;
     margin: 20px auto;
     border-radius: $border-radius;
-    box-shadow: 6px 8px 42px 1px rgba(0, 0, 0, .15);
+    box-shadow: $box-shadow;
 
     &__header {
         padding: 13px 0 13px 16px;
         background-color: #e6e6e6;
-        color: #333;
+        color: #999;
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
-    }
-
-    &:last-child {
-        border-bottom-left-radius: $border-radius;
-        border-bottom-right-radius: $border-radius;
     }
 }

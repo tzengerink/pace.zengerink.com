@@ -17,9 +17,9 @@ exports[`render renders correctly 1`] = `
       value={1}
     />
     <span
-      className="duration-select__separator"
+      className="duration-select__value-label"
     >
-      :
+      hrs
     </span>
     <NumberSelect
       max="59"
@@ -29,9 +29,9 @@ exports[`render renders correctly 1`] = `
       value={1}
     />
     <span
-      className="duration-select__separator"
+      className="duration-select__value-label"
     >
-      :
+      min
     </span>
     <NumberSelect
       max="59"
@@ -43,7 +43,7 @@ exports[`render renders correctly 1`] = `
     <span
       className="duration-select__value-label"
     >
-      hh:mm:ss
+      sec
     </span>
   </div>
 </div>

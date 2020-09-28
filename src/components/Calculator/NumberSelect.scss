@@ -1,0 +1,44 @@
+@import './Calculator.scss';
+
+.number-select {
+    &__wrapper {
+        float: left;
+        display: inline;
+        border-bottom: 1px solid $highlight-dark;
+        cursor: pointer;
+    }
+
+    &__value {
+        font-weight: 600;
+    }
+
+    &__options {
+        display: none;
+        position: absolute;
+        height: 250px;
+        background-color: #fff;
+        overflow-y: scroll;
+        box-shadow: $box-shadow;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+    }
+
+    &__option {
+        padding: 4px 15px 4px 4px;
+        cursor: pointer;
+
+        &--selected {
+            font-weight: 600;
+            background-color: $highlight-light;
+        }
+
+        &:hover {
+            background-color: $hover-grey;
+        }
+    }
+
+    &--active &__options {
+        border-top: 1px solid $highlight-dark;
+        display: block;
+    }
+}

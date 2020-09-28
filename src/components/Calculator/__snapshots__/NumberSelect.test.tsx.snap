@@ -1,67 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`render renders correctly 1`] = `
-<select
-  name="test"
-  onChange={[Function]}
-  value={0}
+<div
+  className="number-select"
 >
-  <option
-    key="0"
-    value={0}
+  <div
+    className="number-select__wrapper"
   >
-    0
-  </option>
-  <option
-    key="1"
-    value={1}
-  >
-    1
-  </option>
-  <option
-    key="2"
-    value={2}
-  >
-    2
-  </option>
-  <option
-    key="3"
-    value={3}
-  >
-    3
-  </option>
-</select>
+    <div
+      className="number-select__value"
+      onClick={[Function]}
+    >
+      0
+    </div>
+    <div
+      className="number-select__options"
+    >
+      <div
+        className="number-select__option number-select__option--selected"
+        data-value={0}
+        key="0"
+        onClick={[Function]}
+      >
+        0
+      </div>
+      <div
+        className="number-select__option"
+        data-value={1}
+        key="1"
+        onClick={[Function]}
+      >
+        1
+      </div>
+      <div
+        className="number-select__option"
+        data-value={2}
+        key="2"
+        onClick={[Function]}
+      >
+        2
+      </div>
+      <div
+        className="number-select__option"
+        data-value={3}
+        key="3"
+        onClick={[Function]}
+      >
+        3
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`render renders padded values correctly 1`] = `
-<select
-  name="test"
-  onChange={[Function]}
-  value={0}
+<div
+  className="number-select"
 >
-  <option
-    key="00"
-    value={0}
+  <div
+    className="number-select__wrapper"
   >
-    00
-  </option>
-  <option
-    key="01"
-    value={1}
-  >
-    01
-  </option>
-  <option
-    key="02"
-    value={2}
-  >
-    02
-  </option>
-  <option
-    key="03"
-    value={3}
-  >
-    03
-  </option>
-</select>
+    <div
+      className="number-select__value"
+      onClick={[Function]}
+    >
+      00
+    </div>
+    <div
+      className="number-select__options"
+    >
+      <div
+        className="number-select__option number-select__option--selected"
+        data-value={0}
+        key="00"
+        onClick={[Function]}
+      >
+        00
+      </div>
+      <div
+        className="number-select__option"
+        data-value={1}
+        key="01"
+        onClick={[Function]}
+      >
+        01
+      </div>
+      <div
+        className="number-select__option"
+        data-value={2}
+        key="02"
+        onClick={[Function]}
+      >
+        02
+      </div>
+      <div
+        className="number-select__option"
+        data-value={3}
+        key="03"
+        onClick={[Function]}
+      >
+        03
+      </div>
+    </div>
+  </div>
+</div>
 `;

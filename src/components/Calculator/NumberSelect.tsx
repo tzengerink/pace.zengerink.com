@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
+import classNames from 'classnames'
+import './NumberSelect.scss'
 
 interface NumberSelectProps {
   name: string
@@ -8,41 +10,95 @@ interface NumberSelectProps {
   pad?: string
 }
 
-export default class NumberSelect extends React.Component<NumberSelectProps, {}> {
+interface NumberSelectState {
+  active: boolean
+}
+
+export default class NumberSelect extends React.Component<NumberSelectProps, NumberSelectState> {
   constructor(props: any) {
     super(props)
 
-    this.handleChange = this.handleChange.bind(this)
+    this.state = {
+      active: false,
+    }
+
+    this.toggleActive = this.toggleActive.bind(this)
+    this.handleOptionClick = this.handleOptionClick.bind(this)
+    this.handleMouseDownOutside = this.handleMouseDownOutside.bind(this)
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleMouseDownOutside, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleMouseDownOutside, false)
   }
 
   displayValue(value: number): string {
-    if (!this.props.pad) {
-      return value.toString()
-    }
-
-    return value.toString().padStart(parseInt(this.props.pad, 10), '0')
+    return this.props.pad ? value.toString().padStart(parseInt(this.props.pad, 10), '0') : value.toString()
   }
 
-  handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    this.props.onChange(parseInt(event.currentTarget.value, 10))
+  handleMouseDownOutside(event: globalThis.MouseEvent | globalThis.TouchEvent) {
+    const target = event.target as HTMLElement
+    if (!target.classList.contains('number-select__option') && !target.classList.contains('number-select__value')) {
+      this.setState({
+        active: false,
+      })
+    }
+  }
+
+  toggleActive(event: React.MouseEvent<HTMLElement>) {
+    this.setState((prevState) => ({
+      active: !prevState.active,
+    }))
+  }
+
+  handleOptionClick(event: React.MouseEvent<HTMLElement>) {
+    const value = event.currentTarget.getAttribute('data-value')
+    if (value === null) {
+      return
+    }
+    this.setState({ active: false })
+    this.props.onChange(parseInt(value, 10))
   }
 
   render() {
+    const mainClassNames = classNames({
+      'number-select': true,
+      'number-select--active': this.state.active,
+    })
+
     const options = []
     for (let i = 0; i <= parseInt(this.props.max, 10); i++) {
       options.push({ displayValue: this.displayValue(i), value: i })
     }
-
-    const items = options.map((option) => (
-      <option key={option.displayValue} value={option.value}>
-        {option.displayValue}
-      </option>
-    ))
+    const optionElements = options.map((option) => {
+      const optionClassNames = classNames({
+        'number-select__option': true,
+        'number-select__option--selected': option.value === this.props.value,
+      })
+      return (
+        <div
+          className={optionClassNames}
+          key={option.displayValue}
+          data-value={option.value}
+          onClick={this.handleOptionClick}
+        >
+          {option.displayValue}
+        </div>
+      )
+    })
 
     return (
-      <select name={this.props.name} value={this.props.value} onChange={this.handleChange}>
-        {items}
-      </select>
+      <div className={mainClassNames}>
+        <div className="number-select__wrapper">
+          <div className="number-select__value" onClick={this.toggleActive}>
+            {this.displayValue(this.props.value)}
+          </div>
+          <div className="number-select__options">{optionElements}</div>
+        </div>
+      </div>
     )
   }
 }

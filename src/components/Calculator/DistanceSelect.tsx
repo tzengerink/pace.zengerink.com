@@ -56,7 +56,7 @@ export default class DurationSelect extends React.Component<DistanceSelectProps,
             pad="3"
             onChange={this.handleChange.bind(this, DistanceFragment.Meters)}
           />
-          <span className="distance-select__value-label">km</span>
+          <span className="distance-select__value-label">m</span>
         </div>
       </div>
     )

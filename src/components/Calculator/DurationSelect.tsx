@@ -55,7 +55,7 @@ export default class DurationSelect extends React.Component<DurationSelectProps,
             max="23"
             onChange={this.handleChange.bind(this, DurationFragment.Hours)}
           />
-          <span className="duration-select__separator">:</span>
+          <span className="duration-select__value-label">hrs</span>
           <NumberSelect
             name={DurationFragment.Minutes}
             value={duration[DurationFragment.Minutes]}
@@ -63,7 +63,7 @@ export default class DurationSelect extends React.Component<DurationSelectProps,
             pad="2"
             onChange={this.handleChange.bind(this, DurationFragment.Minutes)}
           />
-          <span className="duration-select__separator">:</span>
+          <span className="duration-select__value-label">min</span>
           <NumberSelect
             name={DurationFragment.Seconds}
             value={duration[DurationFragment.Seconds]}
@@ -71,7 +71,7 @@ export default class DurationSelect extends React.Component<DurationSelectProps,
             pad="2"
             onChange={this.handleChange.bind(this, DurationFragment.Seconds)}
           />
-          <span className="duration-select__value-label">hh:mm:ss</span>
+          <span className="duration-select__value-label">sec</span>
         </div>
       </div>
     )

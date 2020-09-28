@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
@@ -37,6 +38,7 @@
     "printWidth": 120
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.10",
     "@types/enzyme": "^3.10.7",
     "@types/enzyme-to-json": "^1.5.4",
     "@types/jest": "^26.0.14",

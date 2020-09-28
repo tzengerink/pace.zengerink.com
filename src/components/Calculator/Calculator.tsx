@@ -33,14 +33,14 @@ export default class Calculator extends React.Component<{}, CalculatorState> {
     const durationInMinutes = duration / 60
     const paceInMinutes = pace / 60
     const paceInKilometers = durationInMinutes / paceInMinutes
-    return paceInKilometers * 1000
+    return Math.round(paceInKilometers * 1000)
   }
 
   calculateDuration(distance: number, pace: number): number {
     const distanceInKilometers = distance / 1000
     const paceInMinutes = pace / 60
     const durationInMinutes = distanceInKilometers * paceInMinutes
-    return durationInMinutes * 60
+    return Math.round(durationInMinutes * 60)
   }
 
   calculatePace(duration: number, distance: number): number {

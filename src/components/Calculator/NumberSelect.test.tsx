@@ -23,10 +23,11 @@ describe('onChange', () => {
   it('is called when changed', () => {
     const onChange = jest.fn()
     const wrapper = shallow(<NumberSelect name="test" value={0} max="3" onChange={onChange} />)
-    const select = wrapper.find('[name="test"]')
-    const value = 1
-    const event = { currentTarget: { value: value.toString() } } as React.ChangeEvent<HTMLSelectElement>
-    select.simulate('change', event)
+    const value = 3
+    const option = wrapper.find(`[data-value=${value}]`)
+    const event = { currentTarget: { getAttribute: (attr: string) => value } }
+    option.simulate('click', event)
     expect(onChange.mock.calls.length).toBe(1)
+    expect(onChange.mock.calls[0][0]).toBe(value)
   })
 })
