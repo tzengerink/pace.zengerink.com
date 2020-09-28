@@ -1,18 +1,23 @@
 $border-radius: 4px;
 $box-shadow: 6px 8px 42px 1px rgba(0, 0, 0, .15);
+$white: #fff;
+$lighter-grey: #f0f0f0;
+$light-grey: #e6e6e6;
+$medium-light-grey: #999;
+$medium-grey: #555;
+$dark-grey: #333;
 $dark-highlight: #38f;
 $light-highlight: #e9f4f7;
-$light-grey: #f0f0f0;
 
 @mixin calculator-row {
     display: flex;
     justify-content: space-between;
-    margin: 3px 0 0 0;
-    padding: 10px 0 13px 13px;
-    border-bottom: 1px solid #e6e6e6;
+    padding: 13px 0 13px 13px;
+    border-bottom: 1px solid $light-grey;
+    background-color: $white;
 
     &__label {
-        color: #555;
+        color: $medium-grey;
     }
 
     &__input {
@@ -22,7 +27,7 @@ $light-grey: #f0f0f0;
     &__separator,
     &__value-label {
         float: left;
-        color: #333;
+        color: $dark-grey;
     }
 
     &__separator {
@@ -42,7 +47,7 @@ $light-grey: #f0f0f0;
 
 .calculator {
     width: 280px;
-    margin: 20px auto;
+    margin: 40px auto;
     border-radius: $border-radius;
     box-shadow: $box-shadow;
 
@@ -50,8 +55,8 @@ $light-grey: #f0f0f0;
         display: flex;
         justify-content: space-between;
         padding: 13px;
-        background-color: #e6e6e6;
-        color: #999;
+        background-color: $light-grey;
+        color: $medium-light-grey;
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
     }
@@ -62,10 +67,10 @@ $light-grey: #f0f0f0;
 
     &__header button {
         padding: 4px;
-        color: #999;
+        color: $medium-light-grey;
         border: 0;
         border-radius: 3px;
-        background-color: $light-grey;
+        background-color: $lighter-grey;
         cursor: pointer;
 
         &:focus {
