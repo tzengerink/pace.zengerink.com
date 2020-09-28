@@ -7,7 +7,14 @@ exports[`render renders correctly 1`] = `
   <div
     className="calculator__header"
   >
-    Pace Calculator
+    <div>
+      Pace Calculator
+    </div>
+    <button
+      onClick={[Function]}
+    >
+      Clear
+    </button>
   </div>
   <DurationSelect
     label="Time"

@@ -1,8 +1,8 @@
 $border-radius: 4px;
 $box-shadow: 6px 8px 42px 1px rgba(0, 0, 0, .15);
-$highlight-dark: #38f;
-$highlight-light: #e9f4f7;
-$hover-grey: #f0f0f0;
+$dark-highlight: #38f;
+$light-highlight: #e9f4f7;
+$light-grey: #f0f0f0;
 
 @mixin calculator-row {
     display: flex;
@@ -47,10 +47,35 @@ $hover-grey: #f0f0f0;
     box-shadow: $box-shadow;
 
     &__header {
-        padding: 13px 0 13px 16px;
+        display: flex;
+        justify-content: space-between;
+        padding: 13px;
         background-color: #e6e6e6;
         color: #999;
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
+    }
+
+    &__header div {
+        margin-top: 2px;
+    }
+
+    &__header button {
+        padding: 4px;
+        color: #999;
+        border: 0;
+        border-radius: 3px;
+        background-color: $light-grey;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:active,
+        &:hover {
+            color: $dark-highlight;
+            background-color: $light-highlight;
+        }
     }
 }

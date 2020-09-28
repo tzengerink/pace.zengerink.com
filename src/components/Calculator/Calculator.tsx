@@ -18,15 +18,17 @@ interface CalculatorState {
 }
 
 export default class Calculator extends React.Component<{}, CalculatorState> {
+  readonly defaultState = {
+    [CalculatorValue.DurationInSeconds]: 0,
+    [CalculatorValue.DistanceInMeters]: 0,
+    [CalculatorValue.PaceInSeconds]: 0,
+    changed: [],
+  }
+
   constructor(props: any) {
     super(props)
-
-    this.state = {
-      [CalculatorValue.DurationInSeconds]: 0,
-      [CalculatorValue.DistanceInMeters]: 0,
-      [CalculatorValue.PaceInSeconds]: 0,
-      changed: [],
-    }
+    this.state = this.defaultState
+    this.handleClear = this.handleClear.bind(this)
   }
 
   calculateDistance(duration: number, pace: number): number {
@@ -56,6 +58,10 @@ export default class Calculator extends React.Component<{}, CalculatorState> {
       state[prop] = Number.isFinite(value) ? value : 0
     }
     return state
+  }
+
+  handleClear() {
+    this.setState(this.defaultState)
   }
 
   handleChange(prop: CalculatorValue, value: number) {
@@ -103,7 +109,10 @@ export default class Calculator extends React.Component<{}, CalculatorState> {
   render() {
     return (
       <div className="calculator">
-        <div className="calculator__header">Pace Calculator</div>
+        <div className="calculator__header">
+          <div>Pace Calculator</div>
+          <button onClick={this.handleClear}>Clear</button>
+        </div>
         <DurationSelect
           label="Time"
           value={this.state[CalculatorValue.DurationInSeconds]}

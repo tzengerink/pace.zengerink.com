@@ -4,7 +4,7 @@
     &__wrapper {
         float: left;
         display: inline;
-        border-bottom: 1px solid $highlight-dark;
+        border-bottom: 1px solid $dark-highlight;
         cursor: pointer;
     }
 
@@ -29,16 +29,16 @@
 
         &--selected {
             font-weight: 600;
-            background-color: $highlight-light;
+            background-color: $light-highlight;
         }
 
         &:hover {
-            background-color: $hover-grey;
+            background-color: $light-grey;
         }
     }
 
     &--active &__options {
-        border-top: 1px solid $highlight-dark;
+        border-top: 1px solid $dark-highlight;
         display: block;
     }
 }

@@ -139,4 +139,23 @@ describe('handleChange', () => {
       })
     })
   })
+
+  describe('clear', () => {
+    it('clears the values when clicked', () => {
+      const wrapper = shallow(<Calculator />)
+      const instance = wrapper.instance() as Calculator
+      expect(wrapper.state()).toMatchObject(instance.defaultState)
+
+      instance.handleChange(CalculatorValue.DurationInSeconds, testValues[CalculatorValue.DurationInSeconds])
+      instance.handleChange(CalculatorValue.DistanceInMeters, testValues[CalculatorValue.DistanceInMeters])
+      expect(wrapper.state()).toMatchObject({
+        [CalculatorValue.DurationInSeconds]: testValues[CalculatorValue.DurationInSeconds],
+        [CalculatorValue.DistanceInMeters]: testValues[CalculatorValue.DistanceInMeters],
+        [CalculatorValue.PaceInSeconds]: testValues[CalculatorValue.PaceInSeconds],
+      })
+
+      instance.handleClear()
+      expect(wrapper.state()).toMatchObject(instance.defaultState)
+    })
+  })
 })
