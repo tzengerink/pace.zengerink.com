@@ -1,13 +1,13 @@
 import React from 'react'
-import Calculator from './components/Calculator/Calculator'
+import Calculator from './features/Calculator/Calculator'
 import './App.scss'
 
-export default class App extends React.Component<{}, {}> {
-  render() {
-    return (
-      <div className="app">
-        <Calculator />
-      </div>
-    )
-  }
+const App = () => {
+  return (
+    <div className="app">
+      <Calculator />
+    </div>
+  )
 }
+
+export default App
