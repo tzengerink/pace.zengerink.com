@@ -1,13 +1,4 @@
-$border-radius: 4px;
-$box-shadow: 6px 8px 42px 1px rgba(0, 0, 0, .15);
-$white: #fff;
-$lighter-grey: #f0f0f0;
-$light-grey: #e6e6e6;
-$medium-light-grey: #999;
-$medium-grey: #555;
-$dark-grey: #333;
-$dark-highlight: #38f;
-$light-highlight: #e9f4f7;
+@import '../../App.scss';
 
 @mixin calculator-row {
     display: flex;
