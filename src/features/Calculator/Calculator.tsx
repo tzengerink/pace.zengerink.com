@@ -1,134 +1,82 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DurationSelect from './DurationSelect'
 import DistanceSelect from './DistanceSelect'
 import PaceSelect from './PaceSelect'
 import './Calculator.scss'
 
-export enum CalculatorValue {
-  DurationInSeconds = 'seconds',
-  DistanceInMeters = 'meters',
-  PaceInSeconds = 'pace',
-}
+type CalculatorField = 'duration' | 'distance' | 'pace'
 
-interface CalculatorState {
-  seconds: number
-  meters: number
-  pace: number
-  changed: CalculatorValue[]
-}
+const Calculator = () => {
+  const [durationInSeconds, setDurationInSeconds] = useState(0)
+  const [distanceInMeters, setDistanceInMeters] = useState(0)
+  const [paceInSeconds, setPaceInSeconds] = useState(0)
+  const [changedFields, setChanged] = useState([] as CalculatorField[])
 
-export default class Calculator extends React.Component<{}, CalculatorState> {
-  readonly defaultState = {
-    [CalculatorValue.DurationInSeconds]: 0,
-    [CalculatorValue.DistanceInMeters]: 0,
-    [CalculatorValue.PaceInSeconds]: 0,
-    changed: [],
+  const handleClear = () => {
+    setDurationInSeconds(0)
+    setDistanceInMeters(0)
+    setPaceInSeconds(0)
+    setChanged([])
   }
 
-  constructor(props: any) {
-    super(props)
-    this.state = this.defaultState
-    this.handleClear = this.handleClear.bind(this)
+  const handleDurationChange = (value: number) => {
+    setDurationInSeconds(value)
+    setChanged([...changedFields.filter((i) => i !== 'duration').slice(-1), 'duration' as CalculatorField])
   }
 
-  calculateDistance(duration: number, pace: number): number {
+  const handleDistanceChange = (value: number) => {
+    setDistanceInMeters(value)
+    setChanged([...changedFields.filter((i) => i !== 'distance').slice(-1), 'distance' as CalculatorField])
+  }
+
+  const handlePaceChange = (value: number) => {
+    setPaceInSeconds(value)
+    setChanged([...changedFields.filter((i) => i !== 'pace').slice(-1), 'pace' as CalculatorField])
+  }
+
+  const calculateDistance = (duration: number, pace: number) => {
     const durationInMinutes = duration / 60
     const paceInMinutes = pace / 60
     const paceInKilometers = durationInMinutes / paceInMinutes
     return Math.round(paceInKilometers * 1000)
   }
 
-  calculateDuration(distance: number, pace: number): number {
+  const calculateDuration = (distance: number, pace: number) => {
     const distanceInKilometers = distance / 1000
     const paceInMinutes = pace / 60
     const durationInMinutes = distanceInKilometers * paceInMinutes
     return Math.round(durationInMinutes * 60)
   }
 
-  calculatePace(duration: number, distance: number): number {
+  const calculatePace = (duration: number, distance: number) => {
     const distanceInKilometers = distance / 1000
     const durationInMinutes = duration / 60
     const paceInMinutes = durationInMinutes / distanceInKilometers
     return Math.round(paceInMinutes * 60)
   }
 
-  calculateStateProp(state: CalculatorState, prop: CalculatorValue, calc: () => number): CalculatorState {
-    if (state[prop] === 0 || !state.changed.find((item) => item === prop)) {
-      const value = calc()
-      state[prop] = Number.isFinite(value) ? value : 0
+  useEffect(() => {
+    const shouldCalculate = (field: CalculatorField): boolean => {
+      if (changedFields.length < 2) return false
+      return !changedFields.find((changedField) => changedField === field)
     }
-    return state
-  }
 
-  handleClear() {
-    this.setState(this.defaultState)
-  }
+    if (shouldCalculate('duration')) setDurationInSeconds(calculateDuration(distanceInMeters, paceInSeconds))
+    if (shouldCalculate('distance')) setDistanceInMeters(calculateDistance(durationInSeconds, paceInSeconds))
+    if (shouldCalculate('pace')) setPaceInSeconds(calculatePace(durationInSeconds, distanceInMeters))
+  }, [changedFields, durationInSeconds, distanceInMeters, paceInSeconds])
 
-  handleChange(prop: CalculatorValue, value: number) {
-    this.setState((prevState) => {
-      let nextState = {
-        [CalculatorValue.DurationInSeconds]: prevState[CalculatorValue.DurationInSeconds],
-        [CalculatorValue.DistanceInMeters]: prevState[CalculatorValue.DistanceInMeters],
-        [CalculatorValue.PaceInSeconds]: prevState[CalculatorValue.PaceInSeconds],
-        changed: prevState.changed,
-      }
-      nextState[prop] = value
-
-      // Push current item to the `changed` list, only keep two recent items
-      if (!prevState.changed.some((item) => item === prop)) {
-        if (nextState.changed.push(prop) > 2) {
-          nextState.changed.shift()
-        }
-      }
-
-      nextState = this.calculateStateProp(nextState, CalculatorValue.DurationInSeconds, () => {
-        return this.calculateDuration(
-          nextState[CalculatorValue.DistanceInMeters],
-          nextState[CalculatorValue.PaceInSeconds]
-        )
-      })
-
-      nextState = this.calculateStateProp(nextState, CalculatorValue.DistanceInMeters, () => {
-        return this.calculateDistance(
-          nextState[CalculatorValue.DurationInSeconds],
-          nextState[CalculatorValue.PaceInSeconds]
-        )
-      })
-
-      nextState = this.calculateStateProp(nextState, CalculatorValue.PaceInSeconds, () => {
-        return this.calculatePace(
-          nextState[CalculatorValue.DurationInSeconds],
-          nextState[CalculatorValue.DistanceInMeters]
-        )
-      })
-
-      return nextState
-    })
-  }
-
-  render() {
-    return (
-      <div className="calculator">
-        <div className="calculator__header">
-          <div>Pace Calculator</div>
-          <button onClick={this.handleClear}>Clear</button>
-        </div>
-        <DurationSelect
-          label="Time"
-          value={this.state[CalculatorValue.DurationInSeconds]}
-          onChange={this.handleChange.bind(this, CalculatorValue.DurationInSeconds)}
-        />
-        <DistanceSelect
-          label="Distance"
-          value={this.state[CalculatorValue.DistanceInMeters]}
-          onChange={this.handleChange.bind(this, CalculatorValue.DistanceInMeters)}
-        />
-        <PaceSelect
-          label="Pace"
-          value={this.state[CalculatorValue.PaceInSeconds]}
-          onChange={this.handleChange.bind(this, CalculatorValue.PaceInSeconds)}
-        />
+  return (
+    <div className="calculator">
+      <div className="calculator__header">
+        <div>Pace Calculator</div>
+        <button onClick={() => handleClear()}>Clear</button>
       </div>
-    )
-  }
+      <DurationSelect label="Time" value={durationInSeconds} onChange={handleDurationChange} />
+      <DistanceSelect label="Distance" value={distanceInMeters} onChange={handleDistanceChange} />
+      <PaceSelect label="Pace" value={paceInSeconds} onChange={handlePaceChange} />
+    </div>
+  )
 }
+
+export default Calculator
