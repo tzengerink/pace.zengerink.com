@@ -6,7 +6,9 @@ exports[`render renders correctly 1`] = `
 >
   <div
     className="distance-select__label"
-  />
+  >
+    Distance
+  </div>
   <div
     className="distance-select__input"
   >

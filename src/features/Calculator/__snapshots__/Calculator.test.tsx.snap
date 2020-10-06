@@ -21,12 +21,12 @@ exports[`render renders correctly 1`] = `
     onChange={[Function]}
     value={0}
   />
-  <DurationSelect
+  <DistanceSelect
     label="Distance"
     onChange={[Function]}
     value={0}
   />
-  <DurationSelect
+  <PaceSelect
     label="Pace"
     onChange={[Function]}
     value={0}

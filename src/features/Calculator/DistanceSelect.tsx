@@ -2,9 +2,11 @@ import React from 'react'
 import NumberSelect from './NumberSelect'
 import './DistanceSelect.scss'
 
-export enum DistanceFragment {
-  Kilometers = 'km',
-  Meters = 'm',
+type DistanceFragmentName = 'km' | 'm'
+
+interface DistanceFragments {
+  km: number
+  m: number
 }
 
 interface DistanceSelectProps {
@@ -13,52 +15,44 @@ interface DistanceSelectProps {
   onChange: (value: number) => void
 }
 
-interface Distance {
-  [key: string]: number
-}
+const DistanceSelect = (props: DistanceSelectProps) => {
+  const toMeters = (fragments: DistanceFragments): number => fragments.km * 1000 + fragments.m
 
-export default class DurationSelect extends React.Component<DistanceSelectProps, {}> {
-  handleChange(prop: string, value: number) {
-    const distance = this.toDistance(this.props.value)
-    distance[prop] = value
-    this.props.onChange(this.toMeters(distance))
+  const toDistanceFragments = (meters: number): DistanceFragments => ({
+    km: Math.floor(meters / 1000),
+    m: meters % 1000,
+  })
+
+  const handleChange = (fragmentName: DistanceFragmentName, value: number) => {
+    const fragments = toDistanceFragments(props.value)
+    fragments[fragmentName] = value
+    props.onChange(toMeters(fragments))
   }
 
-  toMeters(distance: Distance): number {
-    return distance[DistanceFragment.Kilometers] * 1000 + distance[DistanceFragment.Meters]
-  }
+  const distanceFragments = toDistanceFragments(props.value)
 
-  toDistance(meters: number): Distance {
-    return {
-      [DistanceFragment.Kilometers]: Math.floor(meters / 1000),
-      [DistanceFragment.Meters]: meters % 1000,
-    }
-  }
-
-  render() {
-    const distance = this.toDistance(this.props.value)
-
-    return (
-      <div className="distance-select">
-        <div className="distance-select__label">{this.props.label}</div>
-        <div className="distance-select__input">
-          <NumberSelect
-            name={DistanceFragment.Kilometers}
-            value={distance[DistanceFragment.Kilometers]}
-            max="100"
-            onChange={this.handleChange.bind(this, DistanceFragment.Kilometers)}
-          />
-          <span className="distance-select__separator">.</span>
-          <NumberSelect
-            name={DistanceFragment.Meters}
-            value={distance[DistanceFragment.Meters]}
-            max="999"
-            pad="3"
-            onChange={this.handleChange.bind(this, DistanceFragment.Meters)}
-          />
-          <span className="distance-select__value-label">m</span>
-        </div>
+  return (
+    <div className="distance-select">
+      <div className="distance-select__label">{props.label}</div>
+      <div className="distance-select__input">
+        <NumberSelect
+          name="km"
+          value={distanceFragments.km}
+          max="100"
+          onChange={(value) => handleChange('km', value)}
+        />
+        <span className="distance-select__separator">.</span>
+        <NumberSelect
+          name="m"
+          value={distanceFragments.m}
+          max="999"
+          pad="3"
+          onChange={(value) => handleChange('m', value)}
+        />
+        <span className="distance-select__value-label">m</span>
       </div>
-    )
-  }
+    </div>
+  )
 }
+
+export default DistanceSelect

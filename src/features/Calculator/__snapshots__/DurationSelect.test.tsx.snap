@@ -6,7 +6,9 @@ exports[`render renders correctly 1`] = `
 >
   <div
     className="duration-select__label"
-  />
+  >
+    Time
+  </div>
   <div
     className="duration-select__input"
   >

@@ -1,21 +1,21 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { shallowToJson } from 'enzyme-to-json'
-import DistanceSelect, { DistanceFragment } from './DistanceSelect'
+import DistanceSelect from './DistanceSelect'
 
 describe('render', () => {
   it('renders correctly', () => {
     const onChange = jest.fn()
-    const wrapper = shallow(<DistanceSelect value={3661} onChange={onChange} />)
+    const wrapper = shallow(<DistanceSelect label="Distance" value={3661} onChange={onChange} />)
     const json = shallowToJson(wrapper)
     expect(json).toMatchSnapshot()
   })
 })
 
-describe('handleChange', () => {
+describe('onChange', () => {
   const testHandleChange = (name: string, newValue: number, expectedArgument: number) => {
     const onChange = jest.fn()
-    const wrapper = shallow(<DistanceSelect value={0} onChange={onChange} />)
+    const wrapper = shallow(<DistanceSelect label="Distance" value={0} onChange={onChange} />)
     const select = wrapper.find(`[name="${name}"]`)
     expect(select.length).toBe(1)
 
@@ -25,7 +25,7 @@ describe('handleChange', () => {
   }
 
   it('is called when one of the selects changes', () => {
-    testHandleChange(DistanceFragment.Kilometers, 1, 1000)
-    testHandleChange(DistanceFragment.Meters, 2, 2)
+    testHandleChange('km', 1, 1000)
+    testHandleChange('m', 2, 2)
   })
 })

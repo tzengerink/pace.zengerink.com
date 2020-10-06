@@ -6,7 +6,9 @@ exports[`render renders correctly 1`] = `
 >
   <div
     className="pace-select__label"
-  />
+  >
+    Pace
+  </div>
   <div
     className="pace-select__input"
   >

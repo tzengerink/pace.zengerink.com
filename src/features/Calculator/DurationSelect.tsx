@@ -2,10 +2,12 @@ import React from 'react'
 import NumberSelect from './NumberSelect'
 import './DurationSelect.scss'
 
-export enum DurationFragment {
-  Hours = 'hours',
-  Minutes = 'minutes',
-  Seconds = 'seconds',
+type DurationFragmentName = 'hours' | 'minutes' | 'seconds'
+
+interface DurationFragments {
+  hours: number
+  minutes: number
+  seconds: number
 }
 
 interface DurationSelectProps {
@@ -14,66 +16,60 @@ interface DurationSelectProps {
   onChange: (value: number) => void
 }
 
-interface Duration {
-  [key: string]: number
-}
-
-export default class DurationSelect extends React.Component<DurationSelectProps, {}> {
-  handleChange(prop: string, value: number) {
-    const duration = this.toDuration(this.props.value)
-    duration[prop] = value
-    this.props.onChange(this.toSeconds(duration))
+const DurationSelect = (props: DurationSelectProps) => {
+  const handleChange = (fragmentName: DurationFragmentName, value: number) => {
+    const fragments = toDuration(props.value)
+    fragments[fragmentName] = value
+    props.onChange(toSeconds(fragments))
   }
 
-  toSeconds(duration: Duration): number {
-    const hours = duration[DurationFragment.Hours] * 3600
-    const minutes = duration[DurationFragment.Minutes] * 60
-
-    return hours + minutes + duration[DurationFragment.Seconds]
+  const toSeconds = (fragments: DurationFragments): number => {
+    const hours = fragments.hours * 3600
+    const minutes = fragments.minutes * 60
+    return hours + minutes + fragments.seconds
   }
 
-  toDuration(seconds: number): Duration {
+  const toDuration = (seconds: number): DurationFragments => {
     const date = new Date(seconds * 1000)
-
     return {
-      [DurationFragment.Hours]: date.getUTCHours(),
-      [DurationFragment.Minutes]: date.getUTCMinutes(),
-      [DurationFragment.Seconds]: date.getSeconds(),
+      hours: date.getUTCHours(),
+      minutes: date.getUTCMinutes(),
+      seconds: date.getSeconds(),
     }
   }
 
-  render() {
-    const duration = this.toDuration(this.props.value)
+  const durationFragments = toDuration(props.value)
 
-    return (
-      <div className="duration-select">
-        <div className="duration-select__label">{this.props.label}</div>
-        <div className="duration-select__input">
-          <NumberSelect
-            name={DurationFragment.Hours}
-            value={duration[DurationFragment.Hours]}
-            max="23"
-            onChange={this.handleChange.bind(this, DurationFragment.Hours)}
-          />
-          <span className="duration-select__value-label">hrs</span>
-          <NumberSelect
-            name={DurationFragment.Minutes}
-            value={duration[DurationFragment.Minutes]}
-            max="59"
-            pad="2"
-            onChange={this.handleChange.bind(this, DurationFragment.Minutes)}
-          />
-          <span className="duration-select__value-label">min</span>
-          <NumberSelect
-            name={DurationFragment.Seconds}
-            value={duration[DurationFragment.Seconds]}
-            max="59"
-            pad="2"
-            onChange={this.handleChange.bind(this, DurationFragment.Seconds)}
-          />
-          <span className="duration-select__value-label">sec</span>
-        </div>
+  return (
+    <div className="duration-select">
+      <div className="duration-select__label">{props.label}</div>
+      <div className="duration-select__input">
+        <NumberSelect
+          name="hours"
+          value={durationFragments.hours}
+          max="23"
+          onChange={(value) => handleChange('hours', value)}
+        />
+        <span className="duration-select__value-label">hrs</span>
+        <NumberSelect
+          name="minutes"
+          value={durationFragments.minutes}
+          max="59"
+          pad="2"
+          onChange={(value) => handleChange('minutes', value)}
+        />
+        <span className="duration-select__value-label">min</span>
+        <NumberSelect
+          name="seconds"
+          value={durationFragments.seconds}
+          max="59"
+          pad="2"
+          onChange={(value) => handleChange('seconds', value)}
+        />
+        <span className="duration-select__value-label">sec</span>
       </div>
-    )
-  }
+    </div>
+  )
 }
+
+export default DurationSelect
