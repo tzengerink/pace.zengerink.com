@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { ReactElement, useReducer } from 'react'
 import DurationSelect from './DurationSelect'
 import DistanceSelect from './DistanceSelect'
 import PaceSelect from './PaceSelect'
@@ -13,14 +13,14 @@ interface CalculatorState {
   changedFields: CalculatorField[]
 }
 
-interface CalculatorAction {
-  type: string
-  payload?: CalculatorChangePayload
-}
-
 interface CalculatorChangePayload {
   field: CalculatorField
   value: number
+}
+
+interface CalculatorAction {
+  type: string
+  payload?: CalculatorChangePayload
 }
 
 const calculateDistance = (duration: number, pace: number) => {
@@ -44,7 +44,7 @@ const calculatePace = (duration: number, distance: number) => {
   return Math.round(paceInMinutes * 60)
 }
 
-const Calculator = () => {
+const Calculator = (): ReactElement => {
   const defaultState = {
     duration: 0,
     distance: 0,

@@ -25,7 +25,7 @@ describe('onChange', () => {
     const wrapper = shallow(<NumberSelect name="test" value={0} max="3" onChange={onChange} />)
     const value = 3
     const option = wrapper.find(`[data-value=${value}]`)
-    const event = { currentTarget: { getAttribute: (attr: string) => value } }
+    const event = { currentTarget: { getAttribute: () => value } }
     option.simulate('click', event)
     expect(onChange.mock.calls.length).toBe(1)
     expect(onChange.mock.calls[0][0]).toBe(value)

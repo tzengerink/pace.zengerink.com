@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import NumberSelect from './NumberSelect'
 import './DistanceSelect.scss'
 
@@ -15,7 +15,7 @@ interface DistanceSelectProps {
   onChange: (value: number) => void
 }
 
-const DistanceSelect = (props: DistanceSelectProps) => {
+const DistanceSelect = (props: DistanceSelectProps): ReactElement => {
   const toMeters = (fragments: DistanceFragments): number => fragments.km * 1000 + fragments.m
 
   const toDistanceFragments = (meters: number): DistanceFragments => ({

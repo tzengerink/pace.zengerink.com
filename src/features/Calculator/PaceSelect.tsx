@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import NumberSelect from './NumberSelect'
 import './PaceSelect.scss'
 
@@ -15,15 +15,16 @@ interface PaceFragments {
   seconds: number
 }
 
-const PaceSelect = (props: PaceSelectProps) => {
+const toSeconds = (pace: PaceFragments): number => pace.minutes * 60 + pace.seconds
+const toPace = (seconds: number): PaceFragments => ({ minutes: Math.floor(seconds / 60), seconds: seconds % 60 })
+
+const PaceSelect = (props: PaceSelectProps): ReactElement => {
   const handleChange = (fragmentName: PaceFragmentName, value: number) => {
     const fragments = toPace(props.value)
     fragments[fragmentName] = value
     props.onChange(toSeconds(fragments))
   }
 
-  const toSeconds = (pace: PaceFragments): number => pace.minutes * 60 + pace.seconds
-  const toPace = (seconds: number): PaceFragments => ({ minutes: Math.floor(seconds / 60), seconds: seconds % 60 })
   const paceFragments = toPace(props.value)
 
   return (

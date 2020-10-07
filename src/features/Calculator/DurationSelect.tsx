@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import NumberSelect from './NumberSelect'
 import './DurationSelect.scss'
 
@@ -16,26 +16,26 @@ interface DurationSelectProps {
   onChange: (value: number) => void
 }
 
-const DurationSelect = (props: DurationSelectProps) => {
+const toSeconds = (fragments: DurationFragments): number => {
+  const hours = fragments.hours * 3600
+  const minutes = fragments.minutes * 60
+  return hours + minutes + fragments.seconds
+}
+
+const toDuration = (seconds: number): DurationFragments => {
+  const date = new Date(seconds * 1000)
+  return {
+    hours: date.getUTCHours(),
+    minutes: date.getUTCMinutes(),
+    seconds: date.getSeconds(),
+  }
+}
+
+const DurationSelect = (props: DurationSelectProps): ReactElement => {
   const handleChange = (fragmentName: DurationFragmentName, value: number) => {
     const fragments = toDuration(props.value)
     fragments[fragmentName] = value
     props.onChange(toSeconds(fragments))
-  }
-
-  const toSeconds = (fragments: DurationFragments): number => {
-    const hours = fragments.hours * 3600
-    const minutes = fragments.minutes * 60
-    return hours + minutes + fragments.seconds
-  }
-
-  const toDuration = (seconds: number): DurationFragments => {
-    const date = new Date(seconds * 1000)
-    return {
-      hours: date.getUTCHours(),
-      minutes: date.getUTCMinutes(),
-      seconds: date.getSeconds(),
-    }
   }
 
   const durationFragments = toDuration(props.value)

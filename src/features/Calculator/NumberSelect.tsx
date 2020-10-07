@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import './NumberSelect.scss'
 
@@ -10,7 +10,7 @@ interface NumberSelectProps {
   pad?: string
 }
 
-const NumberSelect = (props: NumberSelectProps) => {
+const NumberSelect = (props: NumberSelectProps): ReactElement => {
   const [isActive, setIsActive] = useState(false)
 
   const displayValue = (value: number): string => {
